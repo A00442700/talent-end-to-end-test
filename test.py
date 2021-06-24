@@ -3,6 +3,17 @@ import time
 import random
 from base64 import b64encode
 
+def findCount():
+    text_count = driver.find_elements_by_xpath("//*[contains(text(), 'Todo Count')]")
+    for i in text_count:
+        TotalCount = i.text.split(":")[1]
+    return TotalCount
+
+def actualCount():
+    ToDo_count = driver.find_elements_by_css_selector('[class="table table-striped"]>tbody>tr')
+    TotalCount = len(ToDo_count)
+    return TotalCount
+
 driver = webdriver.Chrome()
 driver.get("http://localhost")
 time.sleep(5)
@@ -19,17 +30,6 @@ EnterTask.send_keys("Edited")
 Edit_ToDo = driver.find_element_by_xpath("//*[contains(text(), 'Edit Todo')]")
 Edit_ToDo.click()
 time.sleep(2)
-
-def findCount():
-    text_count = driver.find_elements_by_xpath("//*[contains(text(), 'Todo Count')]")
-    for i in text_count:
-        TotalCount = i.text.split(":")[1]
-    return TotalCount
-
-def actualCount():
-    ToDo_count = driver.find_elements_by_css_selector('[class="table table-striped"]>tbody>tr')
-    TotalCount = len(ToDo_count)
-    return TotalCount
 
 count = int(findCount())
 
